@@ -13,4 +13,15 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
   },
+  rules: {
+    'import/extensions': [
+      'error',
+      'ignorePackages', {
+        js: 'never',
+        mjs: 'never',
+        jsx: 'never',
+        ts: 'never',
+      },
+    ],
+  },
 };
