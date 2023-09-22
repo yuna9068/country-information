@@ -23,5 +23,11 @@ module.exports = {
         ts: 'never',
       },
     ],
+    'max-len': [
+      'error',
+      {
+        ignorePattern: 'd="([\\s\\S]*?)"',
+      },
+    ],
   },
 };
