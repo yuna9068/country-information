@@ -30,4 +30,11 @@ module.exports = {
       },
     ],
   },
+  settings: {
+    'import/core-modules': [
+      'vite',
+      '@vitejs/plugin-vue',
+      '@rushstack/eslint-patch/modern-module-resolution',
+    ],
+  },
 };
