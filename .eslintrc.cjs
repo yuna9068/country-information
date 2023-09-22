@@ -36,5 +36,11 @@ module.exports = {
       '@vitejs/plugin-vue',
       '@rushstack/eslint-patch/modern-module-resolution',
     ],
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true,
+        project: 'tsconfig.json',
+      },
+    },
   },
 };
