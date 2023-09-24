@@ -27,6 +27,7 @@ module.exports = {
       'error',
       {
         ignorePattern: 'd="([\\s\\S]*?)"',
+        ignoreUrls: true,
       },
     ],
   },
