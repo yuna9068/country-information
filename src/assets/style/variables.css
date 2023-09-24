@@ -1,0 +1,32 @@
+/* color palette */
+:root {
+  --c-white: #ffffff;
+
+  --c-gray-light: #fafafa;
+  --c-gray: #858585;
+
+  --c-blue: #2b3945;
+  --c-blue-dark: #202c37;
+  --c-blue-darker: #111517;
+}
+
+/* semantic color variables for this project */
+:root {
+  --color-background-primary: var(--c-white);
+  --color-background-secondary: var(--c-gray-light);
+
+  --color-text: var(--c-blue-darker);
+  --color-text-secondary: var(--c-gray);
+
+  --color-input: var(--c-gray);
+}
+
+[data-theme="dark"] {
+  --color-background-primary: var(--c-blue);
+  --color-background-secondary: var(--c-blue-dark);
+
+  --color-text: var(--c-white);
+  --color-text-secondary: var(--c-gray-light);
+
+  --color-input: var(--c-white);
+}
