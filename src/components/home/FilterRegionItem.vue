@@ -6,10 +6,17 @@ import useThemeStore from '@/stores/theme';
 
 const countryStore = useCountryStore();
 const themeStore = useThemeStore();
-const { searchByRegion } = countryStore;
+const { fetchByRegion } = countryStore;
 const { getTheme } = storeToRefs(themeStore);
 
-const regionList = ['Africa', 'America', 'Asia', 'Europe', 'Oceania'];
+const regionList = [
+  'Africa',
+  'Americas',
+  'Antarctic',
+  'Asia',
+  'Europe',
+  'Oceania',
+];
 const showListStatus = ref(false);
 const iconArrow = computed(() => {
   const result = new URL(
@@ -31,10 +38,10 @@ function displayList(display?: boolean) {
 
 /**
  * 搜尋指定區域的國家清單
- * @param name 區域
+ * @param region 區域
  */
-function search(name:string) {
-  searchByRegion(name);
+function search(region:string) {
+  fetchByRegion(region);
   displayList(false);
 }
 </script>

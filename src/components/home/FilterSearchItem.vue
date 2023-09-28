@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import useCountryStore from '@/stores/country';
 import useThemeStore from '@/stores/theme';
 
 const countryStore = useCountryStore();
 const themeStore = useThemeStore();
-const { searchByCountryName } = countryStore;
+const { fetchAll, fetchByCountryName } = countryStore;
 const { getTheme } = storeToRefs(themeStore);
 
 const iconSearch = computed(
@@ -22,17 +22,25 @@ const iconSearch = computed(
 const keyword = ref('');
 
 /**
- * 搜尋國名包含 keyword 的國家清單
+ * 搜尋國名包含 keyword 的國家清單，若無 keyword 則改取得所有國家清單
  */
 function search() {
-  searchByCountryName(keyword.value);
+  if (keyword.value) {
+    fetchByCountryName(keyword.value);
+    return;
+  }
+  fetchAll();
 }
+
+onMounted(() => {
+  search();
+});
 </script>
 
 <template>
   <div class="search">
     <input
-      v-model="keyword"
+      v-model.lazy="keyword"
       type="search"
       class="search-input filter-item"
       placeholder="Search for a country…"
