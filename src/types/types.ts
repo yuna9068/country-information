@@ -63,7 +63,11 @@ interface PostalCode {
   regex: string;
 }
 
-export interface Country {
+/**
+ * 國家資料所有可用欄位
+ */
+// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+interface Country {
   name: CountryName;
   tld: string[],
   cca2: string;
@@ -99,6 +103,18 @@ export interface Country {
   startOfWeek: string;
   capitalInfo: CapitalInfo;
   postalCode?: PostalCode;
+}
+
+/**
+ * 首頁需要的國家資料欄位
+ */
+export interface CountryHome {
+  name: CountryName;
+  cca2: string;
+  capital?: string[];
+  region: string;
+  population: number;
+  flags: Picture;
 }
 
 export interface FilterRegion {

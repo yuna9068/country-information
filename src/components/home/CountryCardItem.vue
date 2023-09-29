@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed, type PropType } from 'vue';
-import type { Country } from '@/types/types';
+import type { CountryHome } from '@/types/types';
 import altFlag from '@/assets/images/altFlag.jpg';
 
 const props = defineProps({
   country: {
-    type: Object as PropType<Country>,
+    type: Object as PropType<CountryHome>,
     default: () => ({}),
     require: true,
   },

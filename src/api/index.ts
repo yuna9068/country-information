@@ -29,20 +29,25 @@ instance.interceptors.response.use(
 /**
  * 取得所有國家清單
  */
-export const apiGetAll = () => instance.get('all');
+export const apiGetAll = (fields?: string[]) => {
+  const filterString = fields?.length ? `?fields=${fields.join(',')}` : '';
+  return instance.get(`all${filterString}`);
+};
 
 /**
  * 搜尋國名包含查詢字串的國家清單
  * @param name 查詢字串
  */
-export const apiGetByCountryName = (name: string) => (
-  instance.get(`name/${name}`)
-);
+export const apiGetByCountryName = (name: string, fields?: string[]) => {
+  const filterString = fields?.length ? `?fields=${fields.join(',')}` : '';
+  return instance.get(`name/${name}${filterString}`);
+};
 
 /**
  * 搜尋指定區域的國家清單
  * @param region 區域
  */
-export const apiGetByRegion = (region: string) => (
-  instance.get(`region/${region}`)
-);
+export const apiGetByRegion = (region: string, fields?: string[]) => {
+  const filterString = fields?.length ? `?fields=${fields.join(',')}` : '';
+  return instance.get(`region/${region}${filterString}`);
+};
