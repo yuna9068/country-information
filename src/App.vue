@@ -8,7 +8,11 @@ import FooterItem from '@/components/FooterItem.vue';
   <HeaderItem />
   <main class="main">
     <div class="container">
-      <RouterView />
+      <RouterView v-slot="{ Component }">
+        <KeepAlive>
+          <component :is="Component" />
+        </KeepAlive>
+      </RouterView>
     </div>
   </main>
   <FooterItem />
