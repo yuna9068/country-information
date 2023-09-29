@@ -1,6 +1,18 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import FilterSearchItem from './FilterSearchItem.vue';
 import FilterRegionItem from './FilterRegionItem.vue';
+
+const componentSearch = ref<InstanceType<typeof FilterSearchItem> | null>(null);
+const componentRegion = ref<InstanceType<typeof FilterRegionItem> | null>(null);
+
+function resetKeyword() {
+  componentSearch.value?.resetKeyword();
+}
+
+function resetRegion() {
+  componentRegion.value?.resetRegion();
+}
 </script>
 
 <template>
@@ -11,8 +23,14 @@ import FilterRegionItem from './FilterRegionItem.vue';
       </h2>
     </div>
     <div class="section-content">
-      <FilterSearchItem />
-      <FilterRegionItem />
+      <FilterSearchItem
+        ref="componentSearch"
+        @reset="resetRegion"
+      />
+      <FilterRegionItem
+        ref="componentRegion"
+        @reset="resetKeyword"
+      />
     </div>
   </section>
 </template>

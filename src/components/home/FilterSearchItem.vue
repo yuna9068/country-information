@@ -4,11 +4,14 @@ import { storeToRefs } from 'pinia';
 import useCountryStore from '@/stores/country';
 import useThemeStore from '@/stores/theme';
 
+const emit = defineEmits(['reset']);
+
 const countryStore = useCountryStore();
 const themeStore = useThemeStore();
 const { fetchAll, fetchByCountryName } = countryStore;
 const { getTheme } = storeToRefs(themeStore);
 
+const keyword = ref('');
 const iconSearch = computed(
   () => {
     const icon = new URL(
@@ -19,22 +22,32 @@ const iconSearch = computed(
     return result;
   },
 );
-const keyword = ref('');
 
 /**
  * 搜尋國名包含 keyword 的國家清單，若無 keyword 則改取得所有國家清單
  */
 function search() {
+  emit('reset');
+
   if (keyword.value) {
     fetchByCountryName(keyword.value);
-    return;
+  } else {
+    fetchAll();
   }
-  fetchAll();
+}
+
+/**
+ * 重置 keyword
+ */
+function resetKeyword() {
+  keyword.value = '';
 }
 
 onMounted(() => {
   search();
 });
+
+defineExpose({ resetKeyword });
 </script>
 
 <template>

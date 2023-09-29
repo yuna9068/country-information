@@ -101,4 +101,9 @@ export interface Country {
   postalCode?: PostalCode;
 }
 
+export interface FilterRegion {
+  name: string | null;
+  value: string | null;
+}
+
 export type ThemeName = 'light' | 'dark';

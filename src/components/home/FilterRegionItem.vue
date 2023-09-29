@@ -1,23 +1,34 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import useCountryStore from '@/stores/country';
 import useThemeStore from '@/stores/theme';
+import type { FilterRegion } from '@/types/types';
+
+const emit = defineEmits(['reset']);
 
 const countryStore = useCountryStore();
 const themeStore = useThemeStore();
-const { fetchByRegion } = countryStore;
+const { fetchAll, fetchByRegion } = countryStore;
 const { getTheme } = storeToRefs(themeStore);
 
-const regionList = [
-  'Africa',
-  'Americas',
-  'Antarctic',
-  'Asia',
-  'Europe',
-  'Oceania',
+const regionList: FilterRegion[] = [
+  { name: 'All', value: '' },
+  { name: 'Africa', value: 'africa' },
+  { name: 'Americas', value: 'americas' },
+  { name: 'Antarctic', value: 'antarctic' },
+  { name: 'Asia', value: 'asia' },
+  { name: 'Europe', value: 'europe' },
+  { name: 'Oceania', value: 'oceania' },
 ];
 const showListStatus = ref(false);
+const selected: FilterRegion = reactive({
+  name: regionList[0].name,
+  value: regionList[0].value,
+});
+const btnString = computed(
+  () => (selected.value ? selected.name : 'Filter by Region'),
+);
 const iconArrow = computed(() => {
   const result = new URL(
     `/src/assets/images/icon-arrow-down-${getTheme.value}.svg`,
@@ -40,10 +51,32 @@ function displayList(display?: boolean) {
  * 搜尋指定區域的國家清單
  * @param region 區域
  */
-function search(region:string) {
-  fetchByRegion(region);
+function search(region: FilterRegion) {
+  displayList(false);
+  if (region.value === selected.value) {
+    return;
+  }
+
+  Object.assign(selected, region);
+  emit('reset');
+
+  if (region.value) {
+    fetchByRegion(region.value);
+  } else {
+    fetchAll();
+  }
+}
+
+/**
+ * 重置選擇的 region
+ */
+function resetRegion() {
+  selected.name = null;
+  selected.value = null;
   displayList(false);
 }
+
+defineExpose({ resetRegion });
 </script>
 
 <template>
@@ -56,7 +89,7 @@ function search(region:string) {
       class="region-btn btn filter-item"
       @click="displayList()"
     >
-      <span>Filter by Region</span>
+      <span>{{ btnString }}</span>
       <img
         :src="iconArrow"
         class="region-btn-icon"
@@ -65,12 +98,13 @@ function search(region:string) {
     </button>
     <ul class="region-list filter-item">
       <li
-        v-for="item in regionList"
-        :key="item"
+        v-for="(item, idx) in regionList"
+        :key="`region${idx}`"
         class="region-item"
+        :class="[{'region-item--active': item.name === selected.name}]"
         @click="search(item)"
       >
-        {{ item }}
+        {{ item.name }}
       </li>
     </ul>
   </div>
@@ -127,7 +161,12 @@ function search(region:string) {
   transition: background-color 0.3s;
 }
 
-.region-item:hover {
+.region-item:hover,
+.region-item--active {
   background-color: var(--color-background-secondary);
+}
+
+.region-item--active {
+  cursor: default;
 }
 </style>
