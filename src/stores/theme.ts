@@ -1,10 +1,9 @@
 import { computed, ref } from 'vue';
 import { defineStore } from 'pinia';
+import type { ThemeName } from '@/types/types';
 
 const useThemeStore = defineStore('theme', () => {
-  type ThemeList = 'light' | 'dark';
-
-  const theme = ref<ThemeList>('light');
+  const theme = ref<ThemeName>('light');
   const getTheme = computed(() => theme.value);
 
   /**
@@ -12,7 +11,7 @@ const useThemeStore = defineStore('theme', () => {
    * @param value 欲檢查的值
    * @returns {boolean}
    */
-  function isOfTypeThemeList(value: string): value is ThemeList {
+  function isOfTypeThemeList(value: string): value is ThemeName {
     return ['light', 'dark'].includes(value);
   }
 
@@ -20,7 +19,7 @@ const useThemeStore = defineStore('theme', () => {
    * 設定主題，並儲存至 localStorage
    * @param name 主題名稱
    */
-  function setTheme(name: ThemeList) {
+  function setTheme(name: ThemeName) {
     document.documentElement.setAttribute('data-theme', name);
     localStorage.setItem('theme', name);
     theme.value = name;

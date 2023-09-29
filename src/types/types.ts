@@ -100,3 +100,5 @@ export interface Country {
   capitalInfo: CapitalInfo;
   postalCode?: PostalCode;
 }
+
+export type ThemeName = 'light' | 'dark';
