@@ -1,11 +1,14 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
-import useFetchStore from '@/stores/fetch';
-import CountryErrorItem from './CountryErrorItem.vue';
+import useCountryStore from '@/stores/country';
+import ErrorItem from '@/components/ErrorItem.vue';
 import CountryListItem from './CountryListItem.vue';
 
-const fetchStore = useFetchStore();
-const { getErrorDisplay } = storeToRefs(fetchStore);
+const countryStore = useCountryStore();
+const { getCountryList, getSearchValue } = storeToRefs(countryStore);
+
+const displayError = computed(() => getCountryList.value.length < 1);
 </script>
 
 <template>
@@ -16,7 +19,10 @@ const { getErrorDisplay } = storeToRefs(fetchStore);
       </h2>
     </div>
     <div class="section-content">
-      <CountryErrorItem v-if="getErrorDisplay" />
+      <ErrorItem
+        v-if="displayError"
+        :search-value="getSearchValue"
+      />
       <CountryListItem v-else />
     </div>
   </section>

@@ -1,5 +1,16 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+import { storeToRefs } from 'pinia';
+import useCountryStore from '@/stores/country';
+import ErrorItem from '@/components/ErrorItem.vue';
 import DetailInfoItem from './DetailInfoItem.vue';
+
+const countryStore = useCountryStore();
+const { getSelectedCountry } = storeToRefs(countryStore);
+
+const displayError = computed(
+  () => getSelectedCountry.value.info.name.common.length < 1,
+);
 </script>
 
 <template>
@@ -10,7 +21,11 @@ import DetailInfoItem from './DetailInfoItem.vue';
       </h2>
     </div>
     <div class="section-content">
-      <DetailInfoItem />
+      <ErrorItem
+        v-if="displayError"
+        :search-value="getSelectedCountry.name"
+      />
+      <DetailInfoItem v-else />
     </div>
   </section>
 </template>

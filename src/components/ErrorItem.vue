@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
-import useCountryStore from '@/stores/country';
 import useFetchStore from '@/stores/fetch';
 
-const countryStore = useCountryStore();
+defineProps({
+  searchValue: {
+    type: String,
+    default: '',
+  },
+});
+
 const fetchStore = useFetchStore();
-const { getSearchValue } = storeToRefs(countryStore);
 const { getResponseCode } = storeToRefs(fetchStore);
 
 const displayErrorNotFound = computed(() => getResponseCode.value === 404);
@@ -17,7 +21,7 @@ const displayErrorNotFound = computed(() => getResponseCode.value === 404);
     <div v-if="displayErrorNotFound">
       <p>
         We couldn't find anything for
-        <span class="error-em">{{ getSearchValue }}</span>
+        <span class="error-em">{{ searchValue }}</span>
       </p>
       <p>Try different or less specific keywords.</p>
     </div>
