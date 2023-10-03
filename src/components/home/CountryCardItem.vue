@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, type PropType } from 'vue';
 import type { CountryHome } from '@/types/types';
-import altFlag from '@/assets/images/altFlag.jpg';
 
 const props = defineProps({
   country: {
@@ -14,12 +13,6 @@ const props = defineProps({
 const population = computed(() => props.country.population.toLocaleString());
 const capital = computed(
   () => (props.country.capital ? props.country.capital.join(', ') : 'N/A'),
-);
-const imgFlag = computed(
-  () => {
-    const img = (props.country.flags.png ?? props.country.flags.png) ?? altFlag;
-    return img;
-  },
 );
 </script>
 
@@ -46,8 +39,8 @@ const imgFlag = computed(
     </div>
     <picture class="card-pic pic-frame">
       <img
-        :src="imgFlag"
         :alt="country.name.official"
+        v-img-flag="country.flags"
       >
     </picture>
   </div>
