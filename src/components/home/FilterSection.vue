@@ -40,6 +40,19 @@ function resetRegion() {
   padding-block: 24px 32px;
 }
 
+@media screen and (min-width: 768px) {
+  .section-filter {
+    padding-block: 48px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .section-content {
+    display: flex;
+    align-items: center;
+  }
+}
+
 :deep(.filter-item) {
   border-radius: 5px;
   background-color: var(--color-background-primary);

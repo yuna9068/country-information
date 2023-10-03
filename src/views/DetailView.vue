@@ -31,4 +31,10 @@ watchEffect(() => {
 .section {
   padding-inline: 3.2%;
 }
+
+@media screen and (min-width: 768px) {
+  .section {
+    padding-inline: initial;
+  }
+}
 </style>

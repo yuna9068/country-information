@@ -67,6 +67,13 @@ defineExpose({ resetKeyword });
   padding-bottom: 40px;
 }
 
+@media screen and (min-width: 768px) {
+  .search {
+    width: clamp(375px, 37.5%, 480px);
+    padding-bottom: 0;
+  }
+}
+
 .search-input {
   width: 100%;
   padding: 14px 32px 14px 74px;

@@ -112,12 +112,19 @@ defineExpose({ resetRegion });
 
 <style scoped>
 .region {
+  width: 58.309037%;
   position: relative;
-  padding-bottom: 4px;
+}
+
+@media screen and (min-width: 768px) {
+  .region {
+    width: 200px;
+    margin-left: auto;
+  }
 }
 
 .region > * {
-  width: 53.333333vw;
+  width: 100%;
 }
 
 .region-btn {
@@ -142,6 +149,7 @@ defineExpose({ resetRegion });
 
 .region-list {
   max-height: 0;
+  margin-top: 4px;
   position: absolute;
   top: 100%;
   z-index: 10;

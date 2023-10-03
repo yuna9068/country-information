@@ -41,15 +41,15 @@ function goToDetail() {
       </h3>
       <ul class="card-info-list">
         <li class="card-info-item">
-          <span class="card-info-item-col">Population: </span>
+          <span class="card-info-item-col">Population:&nbsp;</span>
           <span class="card-info-item-val">{{ population }}</span>
         </li>
         <li class="card-info-item">
-          <span class="card-info-item-col">Region: </span>
+          <span class="card-info-item-col">Region:&nbsp;</span>
           <span class="card-info-item-val">{{ country.region }}</span>
         </li>
         <li class="card-info-item">
-          <span class="card-info-item-col">Capital: </span>
+          <span class="card-info-item-col">Capital:&nbsp;</span>
           <span class="card-info-item-val">{{ capital }}</span>
         </li>
       </ul>
@@ -71,6 +71,7 @@ function goToDetail() {
 .card {
   display: flex;
   flex-direction: column;
+  height: 100%;
   border-radius: 5px;
   position: relative;
   background-color: var(--color-background-primary);
@@ -91,6 +92,7 @@ function goToDetail() {
 }
 
 .card-info-item {
+  display: flex;
   margin-bottom: 8px;
   line-height: 16px;
 }
@@ -100,6 +102,7 @@ function goToDetail() {
 }
 
 .card-info-item-val {
+  flex: 1;
   font-weight: 300;
 }
 
