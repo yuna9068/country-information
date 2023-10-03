@@ -144,6 +144,7 @@ defineExpose({ resetRegion });
   max-height: 0;
   position: absolute;
   top: 100%;
+  z-index: 10;
   overflow: hidden;
   transition: max-height 0.3s, padding 0.3s 0s;
 }

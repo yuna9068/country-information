@@ -4,9 +4,13 @@ import {
   apiGetAll,
   apiGetByCountryName,
   apiGetByRegion,
+  apiGetByFullName,
+  apiGetByCodes,
 } from '@/api';
 import type {
   CountryHome,
+  CountryDetail,
+  CountryDetailBorders,
 } from '@/types/types';
 
 const useCountryStore = defineStore('country', () => {
@@ -19,12 +23,40 @@ const useCountryStore = defineStore('country', () => {
       'population',
       'flags',
     ], // 首頁國家
+    detailCountry: [
+      'borders',
+      'capital',
+      'currencies',
+      'flags',
+      'languages',
+      'name',
+      'population',
+      'region',
+      'subregion',
+      'tld',
+    ], // 詳情頁國家
+    detailBorder: ['name'], // 詳情頁邊境國家
   }; // api 需要的資料欄位
   const countryList: CountryHome[] = reactive([]); // 首頁國家清單
+  const defaultCountryDetailInfo: CountryDetail = {
+    name: {
+      common: '',
+      official: '',
+    },
+    population: 0,
+    region: '',
+    flags: {},
+  }; // 詳情頁要顯示的國家資訊預設值
   const searchValue = ref(''); // 首頁搜尋的字串或選擇的洲名
+  const selectedCountry = reactive({
+    name: '',
+    info: <CountryDetail>{ ...defaultCountryDetailInfo },
+    borders: <string[]>[],
+  }); // 詳情頁要顯示的國名、資訊、邊境國家
 
   const getCountryList = computed(() => countryList);
   const getSearchValue = computed(() => searchValue.value);
+  const getSelectedCountry = computed(() => selectedCountry);
 
   /**
    * 更新首頁國家清單
@@ -33,6 +65,14 @@ const useCountryStore = defineStore('country', () => {
   function updateCountryList(list: CountryHome[]) {
     countryList.length = 0;
     countryList.push(...list);
+  }
+
+  /**
+   * 儲存詳情頁要顯示的國名
+   * @param name 國名
+   */
+  function saveSelectedCountryName(name: string) {
+    selectedCountry.name = name;
   }
 
   /**
@@ -82,12 +122,54 @@ const useCountryStore = defineStore('country', () => {
     }
   }
 
+  /**
+   * 搜尋指定代碼的國家清單
+   * @param codes 國家代碼，cca2 / ccn3 / cca3 / cioc
+   */
+  async function fetchByCode(codes: string[]) {
+    const result: string[] = [];
+
+    try {
+      const resp = await apiGetByCodes(codes, fields.detailBorder);
+      resp.data.forEach((item: CountryDetailBorders) => {
+        result.push(item.name.common);
+      });
+    } finally {
+      selectedCountry.borders = [...result];
+    }
+  }
+
+  /**
+   * 搜尋指定國名的國家資訊
+   * @param name 國家官方名
+   */
+  async function fetchByFullName(name: string) {
+    let result: CountryDetail[] = [{ ...defaultCountryDetailInfo }];
+
+    try {
+      const resp = await apiGetByFullName(name, fields.detailCountry);
+      result = resp.data;
+    } finally {
+      Object.assign(selectedCountry.info, result[0]);
+
+      const { borders } = result[0];
+      if (borders?.length) {
+        fetchByCode(borders);
+      } else {
+        selectedCountry.borders.length = 0;
+      }
+    }
+  }
+
   return {
     getCountryList,
     getSearchValue,
+    getSelectedCountry,
+    saveSelectedCountryName,
     fetchAll,
     fetchByCountryName,
     fetchByRegion,
+    fetchByFullName,
   };
 });
 

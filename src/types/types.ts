@@ -1,4 +1,4 @@
-interface CountryNameInLang {
+export interface CountryNameInLang {
   [lang: string]: {
     official: string;
     common: string;
@@ -11,7 +11,7 @@ interface CountryName {
   nativeName?: CountryNameInLang;
 }
 
-interface Currency {
+export interface Currency {
   [key: string]: {
     name: string;
     symbol: string;
@@ -23,7 +23,7 @@ interface Idd {
   suffixes?: string[];
 }
 
-interface Language {
+export interface Language {
   [lang: string]: string;
 }
 
@@ -69,7 +69,7 @@ interface PostalCode {
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 interface Country {
   name: CountryName;
-  tld: string[],
+  tld?: string[],
   cca2: string;
   ccn3: string;
   cca3: string;
@@ -106,7 +106,7 @@ interface Country {
 }
 
 /**
- * 首頁需要的國家資料欄位
+ * 首頁國家需要的資料欄位
  */
 export interface CountryHome {
   name: CountryName;
@@ -115,6 +115,29 @@ export interface CountryHome {
   region: string;
   population: number;
   flags: Picture;
+}
+
+/**
+ * 詳情頁國家需要的資料欄位
+ */
+export interface CountryDetail {
+  borders?: string[];
+  capital?: string[];
+  currencies?: Currency;
+  flags: Picture;
+  languages?: Language;
+  name: CountryName;
+  population: number;
+  region: string;
+  subregion?: string;
+  tld?: string[],
+}
+
+/**
+ * 詳情頁邊境國家需要的資料欄位
+ */
+export interface CountryDetailBorders {
+  name: CountryName;
 }
 
 export interface FilterRegion {

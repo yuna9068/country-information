@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, type PropType } from 'vue';
+import { useRouter } from 'vue-router';
 import type { CountryHome } from '@/types/types';
+import useCountryStore from '@/stores/country';
 
 const props = defineProps({
   country: {
@@ -10,17 +12,32 @@ const props = defineProps({
   },
 });
 
+const router = useRouter();
+const countryStore = useCountryStore();
+const { saveSelectedCountryName } = countryStore;
+
+const countryName = computed(() => props.country.name.common);
 const population = computed(() => props.country.population.toLocaleString());
 const capital = computed(
-  () => (props.country.capital ? props.country.capital.join(', ') : 'N/A'),
+  () => (
+    props.country.capital?.length ? props.country.capital.join(', ') : 'N/A'
+  ),
 );
+
+/**
+ * 前往指定國家詳情頁
+ */
+function goToDetail() {
+  saveSelectedCountryName(countryName.value);
+  router.push('/detail');
+}
 </script>
 
 <template>
   <div class="card">
     <div class="card-text">
       <h3 class="card-title">
-        {{ country.name.official }}
+        {{ countryName }}
       </h3>
       <ul class="card-info-list">
         <li class="card-info-item">
@@ -39,10 +56,14 @@ const capital = computed(
     </div>
     <picture class="card-pic pic-frame">
       <img
-        :alt="country.name.official"
         v-img-flag="country.flags"
+        :alt="countryName"
       >
     </picture>
+    <a
+      class="card-link"
+      @click.stop="goToDetail"
+    />
   </div>
 </template>
 
@@ -51,10 +72,10 @@ const capital = computed(
   display: flex;
   flex-direction: column;
   border-radius: 5px;
+  position: relative;
   background-color: var(--color-background-primary);
   box-shadow: 0 0 7px 2px rgba(0, 0, 0, 0.03);
   overflow: hidden;
-  cursor: pointer;
 }
 
 .card-text {
@@ -84,5 +105,11 @@ const capital = computed(
 
 .card-pic {
   aspect-ratio: 1.66875;
+}
+
+.card-link {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
 }
 </style>
