@@ -68,18 +68,58 @@ import { RouterLink } from 'vue-router';
   }
 }
 
+.footer-link {
+  display: inline-block;
+  padding: 5px 0;
+  position: relative;
+  background-image: linear-gradient(
+    to right,
+    var(--color-text-primary),
+    var(--color-text-primary) 50%,
+    var(--color-footer-link-hover) 50%
+  );
+  background-size: 200% 100%;
+  background-position: 0%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.3s;
+}
+
 .footer-link:not(:last-child) {
   margin-right: 10px;
 }
 
+@media (hover: hover) {
+  .footer-link:hover {
+    background-position: 100%;
+  }
+
+  .footer-link::after {
+    content: "";
+    width: 0;
+    height: 2px;
+    border-radius: 20px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--color-footer-link-hover);
+    transition: 0.3s;
+  }
+
+  .footer-link:hover::after {
+    width: 100%;
+  }
+}
+
 .footer-copyright {
+  margin-top: 20px;
   color: var(--color-text-secondary);
 }
 
 @media screen and (min-width: 768px) {
   .footer-copyright {
     width: 100%;
-    margin-top: 20px;
     text-align: center;
   }
 }

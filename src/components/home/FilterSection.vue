@@ -56,7 +56,7 @@ function resetRegion() {
 :deep(.filter-item) {
   border-radius: 5px;
   background-color: var(--color-background-primary);
-  color: var(--color-text);
+  color: var(--color-text-primary);
   box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
 }
 </style>

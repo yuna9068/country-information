@@ -57,10 +57,13 @@ const iconBack = computed(() => {
   width: fit-content;
   padding: 6px 23px 6px 24px;
   border-radius: 2px;
+  position: relative;
+  z-index: 0;
   box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.29);
   line-height: 20px;
   font-weight: 300;
   font-size: 14px;
+  overflow: hidden;
 }
 
 @media screen and (min-width: 768px) {
@@ -68,6 +71,45 @@ const iconBack = computed(() => {
     padding: 10px 39px 10px 32px;
     border-radius: 6px;
     font-size: 16px;
+  }
+}
+
+@media (hover: hover) {
+  @keyframes circle {
+    0% {
+      width: 0;
+      opacity: 0.1;
+    }
+
+    50% {
+      opacity: 0.5;
+    }
+
+    100% {
+      width: 120%;
+      opacity: 0;
+    }
+  }
+
+  .function-btn::before,
+  .function-btn::after {
+    content: '';
+    width: 0;
+    aspect-ratio: 1 / 1;
+    margin: auto;
+    border-radius: 50%;
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: var(--color-card-hover);
+  }
+
+  .function-btn:hover::before {
+    animation: circle 2s ease-in-out infinite;
+  }
+
+  .function-btn:hover::after {
+    animation: circle 2s 1s ease-in-out infinite;
   }
 }
 

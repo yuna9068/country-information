@@ -115,4 +115,29 @@ function goToDetail() {
   inset: 0;
   cursor: pointer;
 }
+
+@media (hover: hover) {
+  .card-link::after {
+    content: "\27A0";
+    width: 30%;
+    height: 100%;
+    padding-top: 3%;
+    padding-left: 3%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--color-card-hover);
+    color: var(--color-text-primary);
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+    font-size: 30px;
+    text-align: center;
+    rotate: 20deg;
+    transform-origin: bottom right;
+    transition: 0.3s;
+  }
+
+  .card-link:hover::after {
+    rotate: 0deg;
+  }
+}
 </style>

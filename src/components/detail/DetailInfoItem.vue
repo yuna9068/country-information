@@ -265,6 +265,15 @@ function goToDetail(name: string) {
   border-radius: 2px;
   box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.10);
   text-align: center;
+  transition: 0.3s;
+}
+
+@media (hover: hover) {
+  .info-border-btn:hover {
+    background-color: var(--color-card-hover);
+    color: var(--color-background-primary);
+    clip-path: polygon(90% 0%, 100% 50%, 90% 100%, 0% 100%, 10% 50%, 0% 0%);
+  }
 }
 
 .info-border-na {

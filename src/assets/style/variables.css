@@ -3,11 +3,17 @@
   --c-white: #ffffff;
 
   --c-gray-light: #fafafa;
-  --c-gray: #858585;
+  --c-gray: #a3a3a3;
+  --c-gray-dark: #858585;
 
   --c-blue: #2b3844;
   --c-blue-dark: #202c37;
   --c-blue-darker: #111517;
+  --c-blue-grayish: #b0bec5;
+  --c-blue-vivid: #16a0f5;
+  --c-blue-soft: #8CB6DE;
+
+  --c-red-pale: #FFB3B3;
 }
 
 /* semantic color variables for this project */
@@ -15,18 +21,26 @@
   --color-background-primary: var(--c-white);
   --color-background-secondary: var(--c-gray-light);
 
-  --color-text: var(--c-blue-darker);
-  --color-text-secondary: var(--c-gray);
+  --color-text-primary: var(--c-blue-darker);
+  --color-text-secondary: var(--c-gray-dark);
+  --color-text-shadow: var(--c-blue-grayish);
 
-  --color-input: var(--c-gray);
+  --color-input: var(--c-gray-dark);
+
+  --color-card-hover: var(--c-red-pale);
+
+  --color-footer-link-hover: var(--c-blue-vivid);
 }
 
 [data-theme="dark"] {
   --color-background-primary: var(--c-blue);
   --color-background-secondary: var(--c-blue-dark);
 
-  --color-text: var(--c-white);
+  --color-text-primary: var(--c-white);
   --color-text-secondary: var(--c-gray-light);
+  --color-text-shadow: var(--c-gray);
 
   --color-input: var(--c-white);
+
+  --color-card-hover: var(--c-blue-soft);
 }
