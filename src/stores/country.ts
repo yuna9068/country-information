@@ -53,10 +53,18 @@ const useCountryStore = defineStore('country', () => {
     info: <CountryDetail>{ ...defaultCountryDetailInfo },
     borders: <string[]>[],
   }); // 詳情頁要顯示的國名、資訊、邊境國家
+  const loading = reactive({
+    homePage: true,
+    card: true,
+    detail: true,
+  });
 
   const getCountryList = computed(() => countryList);
   const getSearchValue = computed(() => searchValue.value);
   const getSelectedCountry = computed(() => selectedCountry);
+  const getLoadingHomePage = computed(() => loading.homePage);
+  const getLoadingCard = computed(() => loading.card);
+  const getLoadingDetail = computed(() => loading.detail);
 
   /**
    * 更新首頁國家清單
@@ -65,6 +73,10 @@ const useCountryStore = defineStore('country', () => {
   function updateCountryList(list: CountryHome[]) {
     countryList.length = 0;
     countryList.push(...list);
+    loading.card = false;
+    if (loading.homePage) {
+      loading.homePage = false;
+    }
   }
 
   /**
@@ -81,6 +93,7 @@ const useCountryStore = defineStore('country', () => {
   async function fetchAll() {
     let result: CountryHome[] = [];
     searchValue.value = '';
+    loading.card = true;
 
     try {
       const resp = await apiGetAll(fields.homeCountry);
@@ -97,6 +110,7 @@ const useCountryStore = defineStore('country', () => {
   async function fetchByCountryName(name: string) {
     let result: CountryHome[] = [];
     searchValue.value = name;
+    loading.card = true;
 
     try {
       const resp = await apiGetByCountryName(name, fields.homeCountry);
@@ -113,6 +127,7 @@ const useCountryStore = defineStore('country', () => {
   async function fetchByRegion(region: string) {
     let result: CountryHome[] = [];
     searchValue.value = region;
+    loading.card = true;
 
     try {
       const resp = await apiGetByRegion(region, fields.homeCountry);
@@ -136,6 +151,7 @@ const useCountryStore = defineStore('country', () => {
       });
     } finally {
       selectedCountry.borders = [...result];
+      loading.detail = false;
     }
   }
 
@@ -145,6 +161,7 @@ const useCountryStore = defineStore('country', () => {
    */
   async function fetchByFullName(name: string) {
     let result: CountryDetail[] = [{ ...defaultCountryDetailInfo }];
+    loading.detail = true;
 
     try {
       const resp = await apiGetByFullName(name, fields.detailCountry);
@@ -157,6 +174,7 @@ const useCountryStore = defineStore('country', () => {
         fetchByCode(borders);
       } else {
         selectedCountry.borders.length = 0;
+        loading.detail = false;
       }
     }
   }
@@ -165,6 +183,9 @@ const useCountryStore = defineStore('country', () => {
     getCountryList,
     getSearchValue,
     getSelectedCountry,
+    getLoadingHomePage,
+    getLoadingCard,
+    getLoadingDetail,
     saveSelectedCountryName,
     fetchAll,
     fetchByCountryName,

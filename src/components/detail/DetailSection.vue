@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import useCountryStore from '@/stores/country';
 import ErrorItem from '@/components/ErrorItem.vue';
+import LoadingItem from './LoadingItem.vue';
 import DetailInfoItem from './DetailInfoItem.vue';
 
 const countryStore = useCountryStore();
@@ -21,6 +22,7 @@ const displayError = computed(
       </h2>
     </div>
     <div class="section-content">
+      <LoadingItem />
       <ErrorItem
         v-if="displayError"
         :search-value="getSelectedCountry.name"
@@ -31,4 +33,7 @@ const displayError = computed(
 </template>
 
 <style scoped>
+.section-content {
+  position: relative;
+}
 </style>

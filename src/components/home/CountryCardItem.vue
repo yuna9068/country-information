@@ -86,6 +86,7 @@ function goToDetail() {
 
 .card-title {
   margin-bottom: 16px;
+  position: relative;
   line-height: 26px;
   font-size: 18px;
   font-weight: 800;
@@ -103,11 +104,38 @@ function goToDetail() {
 
 .card-info-item-val {
   flex: 1;
+  position: relative;
   font-weight: 300;
 }
 
 .card-pic {
   aspect-ratio: 1.66875;
+  position: relative;
+}
+
+.card-title::after,
+.card-info-item-val::after,
+.card-pic::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 5px;
+  background-image: linear-gradient(
+    105deg,
+    var(--color-background-secondary) 10%,
+    var(--color-background-primary) 25%,
+    var(--color-background-secondary) 40%
+  );
+  background-size: 200% 100%;
+  opacity: 0;
+  transition: 0.3s;
+  animation: loading 1s linear infinite;
+  animation-play-state: paused;
+}
+
+.card-pic::after {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .card-link {
@@ -138,6 +166,27 @@ function goToDetail() {
 
   .card-link:hover::after {
     rotate: 0deg;
+  }
+
+  .loading .card-link::after {
+    content: none;
+  }
+}
+
+.loading .card-title::after,
+.loading .card-info-item-val::after,
+.loading .card-pic::after {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200%;
+  }
+
+  100% {
+    background-position: 0;
   }
 }
 </style>

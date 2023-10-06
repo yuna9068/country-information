@@ -4,11 +4,14 @@ import useCountryStore from '@/stores/country';
 import CountryCardItem from './CountryCardItem.vue';
 
 const countryStore = useCountryStore();
-const { getCountryList } = storeToRefs(countryStore);
+const { getCountryList, getLoadingCard } = storeToRefs(countryStore);
 </script>
 
 <template>
-  <ul class="list">
+  <ul
+    class="list"
+    :class="{'loading': getLoadingCard}"
+  >
     <li
       v-for="item in getCountryList"
       :key="item.cca2"
