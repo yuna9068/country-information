@@ -62,7 +62,9 @@ function goToDetail() {
     </picture>
     <a
       class="card-link"
-      @click.stop="goToDetail"
+      href="/detail"
+      aria-label="Navigate to detail page"
+      @click.prevent="goToDetail"
     />
   </div>
 </template>
