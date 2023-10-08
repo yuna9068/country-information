@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import useCountryStore from '@/stores/country';
+import ScrollTopItem from './ScrollTopItem.vue';
 import CountryCardItem from './CountryCardItem.vue';
 
 const countryStore = useCountryStore();
@@ -8,6 +9,7 @@ const { getCountryList, getLoadingCard } = storeToRefs(countryStore);
 </script>
 
 <template>
+  <ScrollTopItem />
   <ul
     class="list"
     :class="{'loading': getLoadingCard}"
