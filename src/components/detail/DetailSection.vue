@@ -7,7 +7,7 @@ import LoadingItem from './LoadingItem.vue';
 import DetailInfoItem from './DetailInfoItem.vue';
 
 const countryStore = useCountryStore();
-const { getSelectedCountry } = storeToRefs(countryStore);
+const { getSelectedCountry, getLoadingDetail } = storeToRefs(countryStore);
 
 const displayError = computed(
   () => getSelectedCountry.value.info.name.common.length < 1,
@@ -22,7 +22,7 @@ const displayError = computed(
       </h2>
     </div>
     <div class="section-content">
-      <LoadingItem />
+      <LoadingItem :show="getLoadingDetail" />
       <ErrorItem
         v-if="displayError"
         :search-value="getSelectedCountry.name"

@@ -1,11 +1,33 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import useCountryStore from '@/stores/country';
 import ScrollTopItem from './ScrollTopItem.vue';
 import CountryCardItem from './CountryCardItem.vue';
+import LoadingListItem from './LoadingListItem.vue';
 
 const countryStore = useCountryStore();
-const { getCountryList, getLoadingCard } = storeToRefs(countryStore);
+const {
+  getCountryList,
+  getLoadingCard,
+  sourceGreaterThanDisplay,
+} = storeToRefs(countryStore);
+const { processCountryList } = countryStore;
+
+const refLoading = ref<InstanceType<typeof LoadingListItem> | null>(null);
+
+const callback = (entries: IntersectionObserverEntry[]) => {
+  entries.forEach(() => {
+    processCountryList();
+  });
+};
+const observer = new IntersectionObserver(callback);
+
+onMounted(() => {
+  if (refLoading.value) {
+    observer.observe(refLoading.value.$el);
+  }
+});
 </script>
 
 <template>
@@ -22,6 +44,10 @@ const { getCountryList, getLoadingCard } = storeToRefs(countryStore);
       <CountryCardItem :country="item" />
     </li>
   </ul>
+  <LoadingListItem
+    ref="refLoading"
+    :show="sourceGreaterThanDisplay"
+  />
 </template>
 
 <style scoped>

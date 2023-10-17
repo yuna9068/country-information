@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia';
-import useCountryStore from '@/stores/country';
+import { ref } from 'vue';
 
-const countryStore = useCountryStore();
-const { getLoadingHomePage } = storeToRefs(countryStore);
+const loading = ref(true);
+
+setTimeout(() => {
+  loading.value = false;
+}, 3500); // hide 動畫執行時間 + 延遲時間
 </script>
 
 <template>
   <section
     class="section section-loading"
-    :class="{'loading': getLoadingHomePage}"
+    :class="{'loading': loading}"
   >
     <div class="section-heading">
       <h2 class="section-heading-title">
@@ -45,7 +47,6 @@ const { getLoadingHomePage } = storeToRefs(countryStore);
   inset: 0;
   z-index: 99;
   overflow: hidden;
-  transition: width 0.5s 2.5s, height 3s;
 }
 
 .section-loading::before {
@@ -104,7 +105,7 @@ const { getLoadingHomePage } = storeToRefs(countryStore);
 
 .title-text-em::after {
   content: '';
-  animation: typing 2s linear infinite;
+  animation: typing 2s linear 1 forwards;
   animation-play-state: paused;
 }
 
@@ -143,12 +144,29 @@ const { getLoadingHomePage } = storeToRefs(countryStore);
 .loading {
   width: 100%;
   height: 100%;
+  animation: hide 1s 2.5s 1 forwards;
 }
 
 .loading .title-text-em,
 .loading .title-text-em::after,
 .loading .dot {
   animation-play-state: running;
+}
+
+@keyframes hide {
+  0% {
+    width: 100%;
+    height: 100%;
+  }
+
+  80% {
+    width: 100%;
+  }
+
+  100% {
+    width: 0;
+    height: 0;
+  }
 }
 
 @keyframes typing {

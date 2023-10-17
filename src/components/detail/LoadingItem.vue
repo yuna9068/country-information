@@ -1,63 +1,95 @@
 <script setup lang="ts">
-import useCountryStore from '@/stores/country';
-import { storeToRefs } from 'pinia';
-
-const countryStore = useCountryStore();
-const { getLoadingDetail } = storeToRefs(countryStore);
-
-const delay = [0, 0.2, 0.4, 0.6, 0.8];
+defineProps({
+  show: {
+    type: Boolean,
+    default: false,
+  },
+});
 </script>
 
 <template>
-  <div :class="{'loading': getLoadingDetail}">
-    <ul class="circles">
+  <div
+    class="loading"
+    :class="{'show': show}"
+  >
+    <ul class="list">
       <li
-        v-for="item in delay"
-        :key="item"
-        class="circle"
-        :style="`--delay: ${item}s`"
-      />
+        v-for="num in 12"
+        :key="num"
+        class="item"
+        :style="`--i:${num};`"
+      >
+        <div class="circle" />
+      </li>
     </ul>
   </div>
 </template>
 
 <style scoped>
-.circles {
+.loading {
   position: absolute;
   inset: 0 0 0 0;
   z-index: -1;
   background: var(--color-background-secondary);
-  text-align: center;
   opacity: 0;
   transition: all 0.3s;
 }
 
-.circle {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  margin: 10% 5px 0;
-  border-radius: 50%;
-  background-color: var(--color-card-hover);
-  animation: circle 1s var(--delay) infinite alternate both;
+.show.loading {
+  opacity: 1;
+  z-index: 5;
+}
+
+.list {
+  width: 100px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto 40px;
+  position: relative;
+}
+
+.item {
+  position: absolute;
+  transform-origin: 50px 0;
+  translate: 0 50px;
+  rotate: calc(var(--i) * -30deg);
+  animation: color 1.2s infinite;
   animation-play-state: paused;
 }
 
-.loading .circles {
-  z-index: 5;
-  opacity: 1;
+.circle {
+  --shadow-blur: 3px;
+  width: 10px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background-color: var(--color-card-hover);
+  filter:
+    drop-shadow(0 0 var(--shadow-blur) var(--color-card-hover))
+    drop-shadow(0 0 calc(var(--shadow-blur) * 3) var(--color-card-hover))
+    drop-shadow(0 0 calc(var(--shadow-blur) * 6) var(--color-card-hover));
+  animation: scale 1.2s calc(var(--i) * -0.1s) infinite;
+  animation-play-state: paused;
 }
 
-.loading .circle {
+.show .item,
+.show .circle {
   animation-play-state: running;
 }
 
-@keyframes circle {
+@keyframes color {
   0% {
-    transform: scale(0);
+    filter: hue-rotate(0deg);
   }
   100% {
-    transform: scale(1);
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes scale {
+  0% {
+    scale: 1;
+  }
+  100% {
+    scale: 0;
   }
 }
 </style>

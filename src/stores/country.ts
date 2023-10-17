@@ -37,6 +37,7 @@ const useCountryStore = defineStore('country', () => {
     ], // 詳情頁國家
     detailBorder: ['name'], // 詳情頁邊境國家
   }; // api 需要的資料欄位
+  const countrySourceList: CountryHome[] = reactive([]); // 首頁國家清單 - 原始資料
   const countryList: CountryHome[] = reactive([]); // 首頁國家清單
   const defaultCountryDetailInfo: CountryDetail = {
     name: {
@@ -54,7 +55,6 @@ const useCountryStore = defineStore('country', () => {
     borders: <string[]>[],
   }); // 詳情頁要顯示的國名、資訊、邊境國家
   const loading = reactive({
-    homePage: true,
     card: true,
     detail: true,
   });
@@ -62,21 +62,34 @@ const useCountryStore = defineStore('country', () => {
   const getCountryList = computed(() => countryList);
   const getSearchValue = computed(() => searchValue.value);
   const getSelectedCountry = computed(() => selectedCountry);
-  const getLoadingHomePage = computed(() => loading.homePage);
   const getLoadingCard = computed(() => loading.card);
   const getLoadingDetail = computed(() => loading.detail);
+  const sourceGreaterThanDisplay = computed(
+    () => countrySourceList.length > countryList.length,
+  );
+
+  /**
+   * 處理顯示在首頁的國家清單資料
+   */
+  function processCountryList() {
+    if (sourceGreaterThanDisplay.value) {
+      const startIndex = countryList.length;
+      const endIndex = startIndex + 12;
+      const increaseList = countrySourceList.slice(startIndex, endIndex);
+      countryList.push(...increaseList);
+    }
+  }
 
   /**
    * 更新首頁國家清單
    * @param list 國家清單
    */
   function updateCountryList(list: CountryHome[]) {
+    countrySourceList.length = 0;
+    countrySourceList.push(...list);
     countryList.length = 0;
-    countryList.push(...list);
+    processCountryList();
     loading.card = false;
-    if (loading.homePage) {
-      loading.homePage = false;
-    }
   }
 
   /**
@@ -183,9 +196,10 @@ const useCountryStore = defineStore('country', () => {
     getCountryList,
     getSearchValue,
     getSelectedCountry,
-    getLoadingHomePage,
     getLoadingCard,
     getLoadingDetail,
+    sourceGreaterThanDisplay,
+    processCountryList,
     saveSelectedCountryName,
     fetchAll,
     fetchByCountryName,
