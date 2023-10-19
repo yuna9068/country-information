@@ -1,46 +1,158 @@
-# country-information
+<a name="readme-top"></a>
 
-This template should help get you started developing with Vue 3 in Vite.
+<div align="center">
+    <h1>Where in the world?</h1>
+    <p>
+        This is a solution to the
+        <a href="https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca">REST Countries API with color theme switcher challenge on Frontend Mentor</a>
+        .
+    </p>
+    <p>
+        <a href="https://github.com/github_username/repo_name">Github Live Site URL</a>
+        ·
+        <a href="https://github.com/github_username/repo_name">Frontend Mentor Solution URL</a>
+    </p>
+</div>
 
-## Recommended IDE Setup
+![Home](./docs/screenshot/home.webp)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
-## Type Support for `.vue` Imports in TS
+## Table of contents
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+* [Features](#features)
+* [Screenshot](#screenshot)
+* [Built with](#built-with)
+* [Getting Started](#getting-started)
+    * [Prerequisites](#prerequisites)
+    * [Installation](#installation)
+* [Acknowledgments](#acknowledgments)
+* [Author](#author)
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+## Features
 
-## Customize configuration
+* See all countries from the API on the homepage
+* Search for a country using an `input` field
+* Filter countries by region
+* Click on a country to see more detailed information on a separate page
+* Click through to the border countries on the detail page
+* Toggle the color scheme between light and dark mode
+* Responsive web design
+* Scroll to top
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+<p align="right"><a href="#readme-top">⬆︎ BACK TO TOP</a></p>
 
-## Project Setup
 
-```sh
-npm install
-```
+## Screenshot
 
-### Compile and Hot-Reload for Development
+<table>
+    <tr>
+        <td>
+            <p>Home</p>
+            <img src="./docs/screenshot/home.webp" alt="Home">
+        </td>
+        <td>
+            <p>Detail</p>
+            <img src="./docs/screenshot/detail.webp" alt="Detail">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>Home RWD</p>
+            <img src="./docs/screenshot/home-light-rwd.png" alt="Home - Light Mode">
+        </td>
+        <td>
+            <p>Detail RWD</p>
+            <img src="./docs/screenshot/detail-dark-rwd.png" alt="Detail - Dark Mode">
+        </td>
+    </tr>
+</table>
 
-```sh
-npm run dev
-```
 
-### Type-Check, Compile and Minify for Production
+<details>
+  <summary>GIF</summary>
+  <table>
+    <tr>
+        <td>
+            <p>Home</p>
+            <img src="./docs/screenshot/home.gif" alt="Home">
+        </td>
+        <td>
+            <p>Detail</p>
+            <img src="./docs/screenshot/detail.gif" alt="Detail">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>Theme Switcher</p>
+            <img src="./docs/screenshot/theme.gif" alt="Theme">
+        </td>
+        <td></td>
+    </tr>
+  </table>
+</details>
 
-```sh
-npm run build
-```
 
-### Lint with [ESLint](https://eslint.org/)
+<p align="right"><a href="#readme-top">⬆︎ BACK TO TOP</a></p>
 
-```sh
-npm run lint
-```
+
+## Built with
+
+* Mobile-first workflow
+* [Vue 3](https://vuejs.org): JavaScript Framework
+* [Vue Router 4](https://router.vuejs.org): Official router for Vue
+* [Pinia 2](https://pinia.vuejs.org): Store library for Vue
+* [Vite 4](https://vitejs.dev): Build tool
+* [Axios 1](https://axios-http.com): Promise based HTTP client for the browser and node.js
+
+<p align="right"><a href="#readme-top">⬆︎ BACK TO TOP</a></p>
+
+
+## Getting Started
+
+To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+* [Node.js](https://nodejs.org) version 16.0 or higher
+
+### Installation
+1. Clone the repo
+   ```sh
+   git clone https://github.com/yuna9068/country-information.git
+   ```
+2. Install NPM packages
+   ```sh
+   npm install
+   ```
+3. Compile and Hot-Reload for Development
+    ```sh
+    npm run dev
+    ```
+
+<p align="right"><a href="#readme-top">⬆︎ BACK TO TOP</a></p>
+
+
+## Acknowledgments
+
+* [Frontend Mentor](https://www.frontendmentor.io)
+* [REST Countries API](https://restcountries.com)
+* [Photo of *white and red globe under blue sky during daytime* by Lucas George Wendt on Unsplash](https://unsplash.com/photos/IYm2PCy0f8c)
+* Theme Switcher
+    * [**實作網頁深色模式及淺色模式的切換** by Mark](https://blog.tarswork.com/post/implement-dark-mode-and-light-mode-for-web-pages)
+    * [**Dark Theme Switcher in Vue.js** by yestellar](https://github.com/yestellar/vue_theme_switcher#dark-theme-switcher-in-vuejs)
+* Typewriter text animation
+    * [**CSS-only typewriter text animation** by Alvaro Montoro](https://codepen.io/alvaromontoro/pen/rNwVpdd)
+    * [**小tips: 纯CSS实现打字动画效果** by 张鑫旭](https://www.zhangxinxu.com/wordpress/2019/01/css-typewriter-effect)
+* Loading animation
+    * [**Star Particles | CSS Only Animation Effects** by Online Tutorials](https://youtu.be/prfvYAzwdxE)
+* [**Best-README-Template** by othneildrew](https://github.com/othneildrew/Best-README-Template)
+
+<p align="right"><a href="#readme-top">⬆︎ BACK TO TOP</a></p>
+
+
+## Author
+
+- GitHub - [Yuna](https://github.com/yuna9068)
+- Frontend Mentor - [@yuna9068](https://www.frontendmentor.io/profile/yuna9068)
+
+<p align="right"><a href="#readme-top">⬆︎ BACK TO TOP</a></p>
