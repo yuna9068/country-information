@@ -66,6 +66,25 @@ const acknowledgments = [
     link: 'https://github.com/othneildrew/Best-README-Template',
   },
 ];
+
+const design = [
+  {
+    title: 'REST Countries API FIELDS',
+    link: 'https://github.com/yuna9068/country-information/tree/main/docs/api',
+  },
+  {
+    title: 'Frontend Mentor challenge README',
+    link: 'https://github.com/yuna9068/country-information/blob/main/docs/design/README.md',
+  },
+  {
+    title: 'Frontend Mentor challenge style guide',
+    link: 'https://github.com/yuna9068/country-information/blob/main/docs/design/style-guide.md',
+  },
+  {
+    title: 'JPEG design files for mobile & desktop layouts',
+    link: 'https://github.com/yuna9068/country-information/tree/main/docs/design',
+  },
+];
 </script>
 
 <template>
@@ -165,6 +184,29 @@ const acknowledgments = [
         <ul class="list">
           <li
             v-for="item in acknowledgments"
+            :key="item.title"
+          >
+            <a
+              class="link"
+              :href="item.link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >{{ item.title }}</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <h2 class="section-heading-title">
+          Design files
+        </h2>
+      </div>
+      <div class="section-content">
+        <ul class="list">
+          <li
+            v-for="item in design"
             :key="item.title"
           >
             <a
