@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const loading = ref(true);
 
 setTimeout(() => {
   loading.value = false;
+  localStorage.setItem('first', 'true');
 }, 3500); // hide 動畫執行時間 + 延遲時間
+
+onMounted(() => {
+  const first = localStorage.getItem('first');
+  loading.value = !first;
+});
 </script>
 
 <template>
