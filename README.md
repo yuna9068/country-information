@@ -8,9 +8,9 @@
         .
     </p>
     <p>
-        <a href="https://github.com/github_username/repo_name">Github Live Site URL</a>
+        <a href="https://yuna9068.github.io/country-information/">Github Live Site URL</a>
         ·
-        <a href="https://github.com/github_username/repo_name">Frontend Mentor Solution URL</a>
+        <a href="https://www.frontendmentor.io/solutions/rest-countries-api-with-color-theme-switcher-ciKDYl51B3">Frontend Mentor Solution URL</a>
     </p>
 </div>
 
