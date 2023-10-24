@@ -117,13 +117,13 @@ To get a local copy up and running follow these simple example steps.
 
 ### Installation
 1. Clone the repo
-   ```sh
-   git clone https://github.com/yuna9068/country-information.git
-   ```
+    ```sh
+    git clone https://github.com/yuna9068/country-information.git
+    ```
 2. Install NPM packages
-   ```sh
-   npm install
-   ```
+    ```sh
+    npm install
+    ```
 3. Compile and Hot-Reload for Development
     ```sh
     npm run dev
