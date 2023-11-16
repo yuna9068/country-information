@@ -85,6 +85,21 @@ const design = [
     link: 'https://github.com/yuna9068/country-information/tree/main/docs/design',
   },
 ];
+
+const gitHub = [
+  {
+    title: 'Profile',
+    link: 'https://github.com/yuna9068',
+  },
+  {
+    title: 'Repository',
+    link: 'https://github.com/yuna9068/country-information',
+  },
+  {
+    title: 'README',
+    link: 'https://github.com/yuna9068/country-information/blob/main/README.md',
+  },
+];
 </script>
 
 <template>
@@ -207,6 +222,29 @@ const design = [
         <ul class="list">
           <li
             v-for="item in design"
+            :key="item.title"
+          >
+            <a
+              class="link"
+              :href="item.link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >{{ item.title }}</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <h2 class="section-heading-title">
+          GitHub
+        </h2>
+      </div>
+      <div class="section-content">
+        <ul class="list">
+          <li
+            v-for="item in gitHub"
             :key="item.title"
           >
             <a
