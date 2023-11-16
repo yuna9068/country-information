@@ -12,7 +12,7 @@ const countryName = computed(() => country.value.name.common);
 const nativeName = computed(() => {
   let result = country.value.name.common;
   const native = country.value.name.nativeName;
-  if (native) {
+  if (native && Object.keys(native).length) {
     const nativeList: string[] = [];
     Object.keys(native).forEach((item) => {
       nativeList.push(native[item].common);
@@ -24,18 +24,20 @@ const nativeName = computed(() => {
 });
 const population = computed(() => country.value.population.toLocaleString());
 const subRegion = computed(
-  () => country.value.subregion ?? 'N/A',
+  () => country.value.subregion || 'N/A',
 );
 const capital = computed(
-  () => (country.value.capital ? country.value.capital.join(', ') : 'N/A'),
+  () => (
+    country.value.capital?.length ? country.value.capital.join(', ') : 'N/A'
+  ),
 );
 const tld = computed(
-  () => (country.value.tld ? country.value.tld.join(', ') : 'N/A'),
+  () => (country.value.tld?.length ? country.value.tld.join(', ') : 'N/A'),
 );
 const currencies = computed(() => {
   let result = 'N/A';
-  if (country.value.currencies) {
-    const currency = country.value.currencies;
+  const currency = country.value.currencies;
+  if (currency && Object.keys(currency).length) {
     const nameList: string[] = [];
     Object.keys(currency).forEach((item) => {
       nameList.push(currency[item].name);
@@ -47,8 +49,8 @@ const currencies = computed(() => {
 });
 const languages = computed(() => {
   let result = 'N/A';
-  if (country.value.languages) {
-    const language = country.value.languages;
+  const language = country.value.languages;
+  if (language && Object.keys(language).length) {
     const nameList: string[] = [];
     Object.keys(language).forEach((item) => {
       nameList.push(language[item]);
